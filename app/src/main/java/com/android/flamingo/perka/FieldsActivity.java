@@ -9,7 +9,10 @@ import android.widget.EditText;
 import java.util.List;
 
 public class FieldsActivity extends AppCompatActivity {
-    private String first,last,email,position,source,explanation,base64res;
+    private String first,last,email,position,source,base64res;
+    private String explanation="Given that I am applying for an Android position, I thought it was only appropriate if I make an android program to do it \n " +
+            "This program takes in informations from the user through edit text fields and sends it to the endpoint provided by you guys\n" +
+            "this program can be found in my github page @https://github.com/qiyuanchen/Perka ";
     private byte[]resume;
     private List<String> projects;
     //going to make explanation, resume, and projects hardcoded.
@@ -28,9 +31,7 @@ public class FieldsActivity extends AppCompatActivity {
         email=((EditText)findViewById(R.id.email)).getText().toString();
         position=((EditText)findViewById(R.id.pos)).getText().toString();
         source=((EditText)findViewById(R.id.source)).getText().toString();
-        explanation="Given that I am applying for an Android position, I thought it was only appropriate if I make an android program to do it \n " +
-                "This program takes in informations from the user through edit text fields and sends it to the endpoint provided by you guys\n" +
-                "this program can be found in my github page "
+
         //   String first,String last,String email, String position,String source,String explanation, List<String> proj,String resume
 
         request req=new request(first,last,email,position,source,explanation,projects,base64res);
