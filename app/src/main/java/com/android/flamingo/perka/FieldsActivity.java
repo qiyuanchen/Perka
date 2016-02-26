@@ -1,11 +1,18 @@
 package com.android.flamingo.perka;
 
+import android.content.res.AssetManager;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 
+import org.apache.commons.io.IOUtils;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FieldsActivity extends AppCompatActivity {
@@ -23,6 +30,10 @@ public class FieldsActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_fields);
+        projects=new ArrayList<String>();
+        projects.add("Boomset Guest Check in - Android");
+        projects.add("Boomset Lead Retrieval - Android");
+        projects.add("LIT NYC - Capstone project");
 
     }
     public void send()throws Exception{
@@ -33,10 +44,13 @@ public class FieldsActivity extends AppCompatActivity {
         source=((EditText)findViewById(R.id.source)).getText().toString();
 
         //   String first,String last,String email, String position,String source,String explanation, List<String> proj,String resume
+        base64res=convertResume();
+        if(!base64res.equals("Error")) {
+            request req = new request(first, last, email, position, source, explanation, projects, base64res);
+            response res = NetworkHelper.makeRequestAdapter(FieldsActivity.this)
+                    .create(perka_back_end.class).res(req);
+        }
 
-        request req=new request(first,last,email,position,source,explanation,projects,base64res);
-        response res = NetworkHelper.makeRequestAdapter(FieldsActivity.this)
-                .create(perka_back_end.class).res(req);
     }
     public void submit(View view){
         try{
@@ -44,6 +58,23 @@ public class FieldsActivity extends AppCompatActivity {
         }catch(Exception e){
 
         }
+    }
+    private String convertResume(){
+        AssetManager am= getAssets();
+        InputStream input;
+        String encoded="";
+        try{
+            input=am.open("resume.pdf");
+            resume=IOUtils.toByteArray(input);
+            encoded=Base64.encodeToString(resume,Base64.DEFAULT);
+
+        }catch(IOException e){
+            e.printStackTrace(System.out);
+        }
+        if(encoded!=null&&!encoded.equals("")){
+            return encoded;
+        }
+        return "Error";
     }
 
 }
