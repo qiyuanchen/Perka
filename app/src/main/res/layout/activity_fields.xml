@@ -15,7 +15,7 @@
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="First name"
+        android:hint="First name"
         android:ems="10"
         android:id="@+id/first"
         />
@@ -23,7 +23,7 @@
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Last name"
+        android:hint="Last name"
         android:ems="10"
         android:id="@+id/last"
         />
@@ -31,21 +31,21 @@
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
-        android:text="email"
+        android:hint="email"
         android:id="@+id/email"
         />
     <EditText
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:text="position id"
+        android:hint="position id"
         android:id="@+id/pos"
         />
     <EditText
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:text="source"
+        android:hint="source"
         android:id="@+id/source"
         />
 
