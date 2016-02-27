@@ -1,17 +1,24 @@
 package com.android.flamingo.perka;
 
+import android.content.Context;
 import android.content.res.AssetManager;
+import android.os.Environment;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
 import org.apache.commons.io.IOUtils;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,9 +38,7 @@ public class FieldsActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_fields);
         projects=new ArrayList<String>();
-        projects.add("Boomset Guest Check in - Android");
-        projects.add("Boomset Lead Retrieval - Android");
-        projects.add("LIT NYC - Capstone project");
+        projects.add("https://github.com/qiyuanchen");
 
     }
     public void send()throws Exception{
@@ -46,9 +51,11 @@ public class FieldsActivity extends AppCompatActivity {
         //   String first,String last,String email, String position,String source,String explanation, List<String> proj,String resume
         base64res=convertResume();
         if(!base64res.equals("Error")) {
+           // writeToFile(base64res);
             request req = new request(first, last, email, position, source, explanation, projects, base64res);
-            response res = NetworkHelper.makeRequestAdapter(FieldsActivity.this)
-                    .create(perka_back_end.class).res(req);
+            String res = NetworkHelper.makeRequestAdapter(FieldsActivity.this)
+                   .create(perka_back_end.class).res(req);
+            Log.d("Result",res);
         }
 
     }
@@ -64,7 +71,7 @@ public class FieldsActivity extends AppCompatActivity {
         InputStream input;
         String encoded="";
         try{
-            input=am.open("resume.pdf");
+            input=am.open("Resume.pdf");
             resume=IOUtils.toByteArray(input);
             encoded=Base64.encodeToString(resume,Base64.DEFAULT);
 
@@ -76,5 +83,21 @@ public class FieldsActivity extends AppCompatActivity {
         }
         return "Error";
     }
+    /* FOR TESTING
+    private void writeToFile(String data) {
+        File logFile = new File(Environment.getExternalStorageDirectory().toString(), "myFile.txt");
+        try {
+            if (!logFile.exists()) {
+                logFile.createNewFile();
+            }
+            BufferedWriter output = new BufferedWriter(new FileWriter(logFile));
+            output.write(data);
+            output.close();
+        }catch(IOException e){
+
+        }
+    }
+    */
+
 
 }

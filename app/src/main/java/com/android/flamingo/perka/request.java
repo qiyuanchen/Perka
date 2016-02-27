@@ -10,7 +10,7 @@ public class request {
     public String first_name;
     public String last_name;
     public String email;
-    public String position_ID;
+    public String position_id;
     public String explanation;
     public List<String> projects;
     public String source;
@@ -20,7 +20,7 @@ public class request {
         this.first_name=first;
         this.last_name=last;
         this.email=email;
-        this.position_ID=position;
+        this.position_id=position;
         this.explanation=explanation;
         this.source=source;
         this.resume=resume;

@@ -10,6 +10,6 @@ import retrofit.http.POST;
 public interface perka_back_end {
     static final String API_VERSION = "1.5";
     @Headers("Content-Type: application/json")
-    @POST("/restapi/leadretrieval/scan")
-    response res(@Body request req)throws Exception;
+    @POST("/1/communication/job/apply")
+    String res(@Body request req)throws Exception;
 }

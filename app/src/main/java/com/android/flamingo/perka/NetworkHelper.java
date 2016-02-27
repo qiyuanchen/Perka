@@ -30,7 +30,7 @@ public class NetworkHelper {
     public static final String JSON_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
     public static final int    CONNECT_TIMEOUT  = 99999;
     public static final int    READ_TIMEOUT     = 99999;
-    public static final String BASE_URL         = "https://boomset.com";
+    public static final String BASE_URL         = "https://api.perka.com";
     private static OkClient instance;
 
     public static RestAdapter makeRequestAdapter(Context context)
